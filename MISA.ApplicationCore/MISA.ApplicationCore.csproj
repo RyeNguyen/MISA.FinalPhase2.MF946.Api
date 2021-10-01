@@ -8,8 +8,4 @@
     <ProjectReference Include="..\MISA.Entity\MISA.Entity.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

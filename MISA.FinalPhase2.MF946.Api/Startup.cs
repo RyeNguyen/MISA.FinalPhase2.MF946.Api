@@ -7,6 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MISA.ApplicationCore.Interfaces.Repositories;
+using MISA.ApplicationCore.Interfaces.Services;
+using MISA.ApplicationCore.Services;
+using MISA.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +40,22 @@ namespace MISA.FinalPhase2.MF946.Api
             services.AddControllers().AddJsonOptions(jsonOptions =>
             {
                 jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
-            });            
+            });
+
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IProjectRepository, ProjectRepository>();
+
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<ITaskRepository, TaskRepository>();
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
