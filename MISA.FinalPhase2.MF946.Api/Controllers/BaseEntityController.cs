@@ -41,21 +41,22 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
             try
             {
                 var entities = _baseService.GetAll();
-                if (entities.MISACode == MISACode.IsValid)
+
+                if (entities.Data != null)
                 {
                     return Ok(entities.Data);
                 }
                 else
                 {
-                    return BadRequest(entities.Data);
+                    return NoContent();
                 }
             }
             catch (Exception)
             {
                 var errorObj = new
                 {
-                    devMsg = "Lỗi",
-                    userMsg = "Lỗi",
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
                     Code = MISACode.NotValid
                 };
                 return BadRequest(errorObj);
@@ -90,8 +91,8 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
             {
                 var errorObj = new
                 {
-                    devMsg = "Lỗi",
-                    userMsg = "Lỗi",
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
                     Code = MISACode.NotValid
                 };
                 return BadRequest(errorObj);
@@ -120,7 +121,7 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
 
                 if (insertResult.MISACode == MISACode.IsValid && (int)insertResult.Data > 0)
                 {
-                    return Created("Thành công", insertResult.Data);
+                    return Created(Entity.Properties.MessageSuccessVN.messageSuccessInsert, insertResult.Data);
                 }
                 else
                 {
@@ -131,8 +132,8 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
             {
                 var errorObj = new
                 {
-                    devMsg = "Lỗi",
-                    userMsg = "Lỗi",
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorInsert,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorInsert,
                     Code = MISACode.NotValid
                 };
                 return BadRequest(errorObj);
@@ -174,8 +175,8 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
             {
                 var errorObj = new
                 {
-                    devMsg = "Lỗi",
-                    userMsg = "Lỗi",
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorUpdate,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorUpdate,
                     Code = MISACode.NotValid
                 };
                 return BadRequest(errorObj);

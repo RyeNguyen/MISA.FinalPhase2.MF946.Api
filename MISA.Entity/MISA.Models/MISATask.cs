@@ -26,17 +26,17 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id người được giao việc
         /// </summary>
-        public Guid AssigneeId { get; set; }
+        public Guid? AssigneeId { get; set; }
 
         /// <summary>
         /// Id nhóm/dự án
         /// </summary>
-        public Guid ProjectId { get; set; }
+        public Guid? ProjectId { get; set; }
 
         /// <summary>
         /// Id người giao việc
         /// </summary>
-        public Guid OwnerId { get; set; }
+        public Guid? OwnerId { get; set; }
 
         /// <summary>
         /// Ngày bắt đầu

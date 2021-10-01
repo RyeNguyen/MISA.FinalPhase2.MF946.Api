@@ -1,6 +1,7 @@
 ﻿using MISA.ApplicationCore.Entities;
 using MISA.ApplicationCore.Interfaces.Repositories;
 using MISA.ApplicationCore.Interfaces.Services;
+using MISA.Entity;
 using MISA.Entity.MISA.Models;
 using System;
 using System.Collections.Generic;
@@ -22,9 +23,33 @@ namespace MISA.ApplicationCore.Services
             _serviceResponse = new ServiceResponse();
         }
 
-        public ServiceResponse GetByProject(Guid ProjectId)
+        /// <summary>
+        /// Phương thức lấy danh sách công việc trong 1 nhóm/dự án
+        /// </summary>
+        /// <param name="projectId">ID nhóm/dự án</param>
+        /// <returns>Phản hồi tương ứng</returns>
+        /// Author: NQMinh (01/10/2021)
+        public ServiceResponse GetByProject(Guid projectId)
         {
-            throw new NotImplementedException();
+            _serviceResponse.Data = _taskRepository.GetByProject(projectId);
+
+            if (_serviceResponse.Data != null)
+            {
+                _serviceResponse.MISACode = MISACode.IsValid;
+            }
+            else
+            {
+                var errorMsg = new
+                {
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorGet,
+                    Code = MISACode.NotValid
+                };
+                _serviceResponse.Data = errorMsg;
+                _serviceResponse.Message = Entity.Properties.MessageErrorVN.messageErrorGet;
+                _serviceResponse.MISACode = MISACode.NotValid;
+            }
+            return _serviceResponse;
         }
     }
 }

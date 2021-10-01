@@ -25,6 +25,11 @@ namespace MISA.Infrastructure.Repositories
         {
             _connectionString = configuration.GetConnectionString("MisaFinal");
             _className = typeof(MISAEntity).Name;
+
+            if (_className == "MISATask")
+            {
+                _className = "Task";
+            }
         }
         #endregion
 

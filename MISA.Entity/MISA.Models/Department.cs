@@ -11,7 +11,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id phòng ban
         /// </summary>
-        public Guid DepartmentId { get; set; }
+        public Guid? DepartmentId { get; set; }
 
         /// <summary>
         /// Tên phòng ban
