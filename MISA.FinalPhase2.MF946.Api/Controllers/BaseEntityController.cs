@@ -116,7 +116,7 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
 
                 if (insertResult.MISACode == MISACode.NotValid)
                 {
-                    return BadRequest(insertResult.Data);
+                    return BadRequest(insertResult);
                 }
 
                 if (insertResult.MISACode == MISACode.IsValid && (int)insertResult.Data > 0)
@@ -159,7 +159,7 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
 
                 if (updateResult.MISACode == MISACode.NotValid)
                 {
-                    return BadRequest(updateResult.Data);
+                    return BadRequest(updateResult);
                 }
 
                 if (updateResult.MISACode == MISACode.IsValid && (int)updateResult.Data > 0)
@@ -177,6 +177,47 @@ namespace MISA.FinalPhase2.MF946.Api.Controllers
                 {
                     devMsg = Entity.Properties.MessageErrorVN.messageErrorUpdate,
                     userMsg = Entity.Properties.MessageErrorVN.messageErrorUpdate,
+                    Code = MISACode.NotValid
+                };
+                return BadRequest(errorObj);
+            }
+        }
+        #endregion
+
+        #region Xóa thông tin
+        /// <summary>
+        /// Xóa thông tin 
+        /// </summary>
+        /// <param name="entityIds">Danh sách ID các thực thể cần xóa</param>
+        /// <returns>Phản hồi tương ứng</returns>
+        /// Author: NQMinh (01/10/2021)
+        [HttpPost("delete")]
+        public IActionResult Delete([FromBody] List<Guid> entityIds)
+        {
+            try
+            {
+                var deleteResult = _baseService.Delete(entityIds);
+
+                if (deleteResult.MISACode == MISACode.NotValid)
+                {
+                    return BadRequest(deleteResult);
+                }
+
+                if (deleteResult.MISACode == MISACode.IsValid && (int)deleteResult.Data > 0)
+                {
+                    return StatusCode(200, deleteResult);
+                }
+                else
+                {
+                    return NoContent();
+                }
+            }
+            catch
+            {
+                var errorObj = new
+                {
+                    devMsg = Entity.Properties.MessageErrorVN.messageErrorDelete,
+                    userMsg = Entity.Properties.MessageErrorVN.messageErrorDelete,
                     Code = MISACode.NotValid
                 };
                 return BadRequest(errorObj);

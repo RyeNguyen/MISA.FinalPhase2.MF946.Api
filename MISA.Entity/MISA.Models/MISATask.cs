@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.Entity.MISA.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id công việc
         /// </summary>
+        [MISARequired("Tên công việc")]
         public Guid TaskId { get; set; }
 
         /// <summary>
@@ -31,7 +33,8 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id nhóm/dự án
         /// </summary>
-        public Guid? ProjectId { get; set; }
+        [MISARequired("Nhóm/dự án")]
+        public Guid ProjectId { get; set; }
 
         /// <summary>
         /// Id người giao việc

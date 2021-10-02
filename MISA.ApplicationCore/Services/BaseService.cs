@@ -2,6 +2,7 @@
 using MISA.ApplicationCore.Interfaces.Repositories;
 using MISA.ApplicationCore.Interfaces.Services;
 using MISA.Entity;
+using MISA.Entity.MISA.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,9 @@ namespace MISA.ApplicationCore.Services
             _serviceResponse = new ServiceResponse();
             _className = typeof(MISAEntity).Name;
 
-            if (_className == "MISATask")
+            if (_className.Contains("MISA"))
             {
-                _className = "Task";
+                _className = _className.Replace("MISA", "");
             }
         }
         #endregion
@@ -103,6 +104,12 @@ namespace MISA.ApplicationCore.Services
         /// Author: NQMinh (01/10/2021)
         public ServiceResponse Insert(MISAEntity entity)
         {
+            var requiredValidate = CheckRequired(entity);
+            if (requiredValidate.MISACode == MISACode.NotValid)
+            {
+                return requiredValidate;
+            }
+
             var rowAffects = _baseRepository.Insert(entity);
             _serviceResponse.Data = rowAffects;
             _serviceResponse.Message = Entity.Properties.MessageSuccessVN.messageSuccessInsert;
@@ -121,9 +128,68 @@ namespace MISA.ApplicationCore.Services
         /// Author: NQMinh (01/10/2021)
         public ServiceResponse Update(Guid entityId, MISAEntity entity)
         {
+            var requiredValidate = CheckRequired(entity);
+            if (requiredValidate.MISACode == MISACode.NotValid)
+            {
+                return requiredValidate;
+            }
+
             var rowAffects = _baseRepository.Update(entityId, entity);
             _serviceResponse.Data = rowAffects;
             _serviceResponse.Message = Entity.Properties.MessageSuccessVN.messageSuccessUpdate;
+            _serviceResponse.MISACode = MISACode.IsValid;
+            return _serviceResponse;
+        }
+        #endregion
+
+        #region Xóa thông tin (các) thực thể khỏi cơ sở dữ liệu
+        /// <summary>
+        /// Xóa thông tin (các) thực thể khỏi cơ sở dữ liệu
+        /// </summary>
+        /// <param name="entityIds">Danh sách ID thực thể</param>
+        /// <returns>Phản hồi tương ứng</returns>
+        /// Author: NQMinh (27/08/2021)
+        public ServiceResponse Delete(List<Guid> entityIds)
+        {
+            var rowAffects = _baseRepository.Delete(entityIds);
+            _serviceResponse.Data = rowAffects;
+            _serviceResponse.Message = Entity.Properties.MessageSuccessVN.messageSuccessDelete;
+            _serviceResponse.MISACode = MISACode.IsValid;
+            return _serviceResponse;
+        }
+        #endregion
+
+        #region Phương thức kiểm tra các trường bắt buộc
+        /// <summary>
+        /// Phương thức kiểm tra các trường bắt buộc
+        /// </summary>
+        /// <param name="entity">Thông tin thực thể</param>
+        /// <returns>Phản hồi tương ứng</returns>
+        /// Author: NQMinh (02/10/2021)
+        private ServiceResponse CheckRequired(MISAEntity entity)
+        {
+            //1. Lấy thông tin các property:
+            var properties = typeof(MISAEntity).GetProperties();
+
+            //2. Xác định việc validate dựa trên attribute: (MISARequired - check thông tin không được phép null hoặc trống)
+            foreach (var prop in properties)
+            {
+                var propValue = prop.GetValue(entity);
+
+                //Kiểm tra prop hiện tại có bắt buộc nhập hay không
+                var propMISARequired = prop.GetCustomAttributes(typeof(MISARequired), true);
+                if (propMISARequired.Length > 0)
+                {
+                    var errorMessage = (propMISARequired[0] as MISARequired)._message;
+                    if (prop.PropertyType == typeof(string) && (propValue == null || propValue.ToString() == string.Empty))
+                    {
+                        _serviceResponse.MISACode = MISACode.NotValid;
+                        _serviceResponse.Message = errorMessage;
+                        _serviceResponse.Data = errorMessage;
+                        return _serviceResponse;
+                    }
+                }
+            }
             _serviceResponse.MISACode = MISACode.IsValid;
             return _serviceResponse;
         }

@@ -61,6 +61,15 @@ namespace MISA.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xóa thông tin thành công..
+        /// </summary>
+        public static string messageSuccessDelete {
+            get {
+                return ResourceManager.GetString("messageSuccessDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm thông tin mới thành công..
         /// </summary>
         public static string messageSuccessInsert {

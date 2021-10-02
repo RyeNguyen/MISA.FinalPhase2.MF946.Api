@@ -40,5 +40,13 @@ namespace MISA.ApplicationCore.Interfaces.Services
         /// <returns>Phản hồi tương ứng</returns>
         /// Author: NQMinh (01/10/2021)
         public ServiceResponse Update(Guid entityId, MISAEntity entity);
+
+        /// <summary>
+        /// Xóa thông tin thực thể
+        /// </summary>
+        /// <param name="entityIds">Danh sách ID các thực thể cần xóa</param>
+        /// <returns>Phản hồi tương ứng</returns>
+        /// Author: NQMinh (01/10/2021)
+        public ServiceResponse Delete(List<Guid> entityIds);
     }
 }

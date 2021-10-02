@@ -61,6 +61,15 @@ namespace MISA.Entity.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Có lỗi xảy ra, không thể xóa bản ghi..
+        /// </summary>
+        public static string messageErrorDelete {
+            get {
+                return ResourceManager.GetString("messageErrorDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Có lỗi xảy ra, không thể lấy dữ liệu..
         /// </summary>
         public static string messageErrorGet {

@@ -26,9 +26,9 @@ namespace MISA.Infrastructure.Repositories
             _connectionString = configuration.GetConnectionString("MisaFinal");
             _className = typeof(MISAEntity).Name;
 
-            if (_className == "MISATask")
+            if (_className.Contains("MISA"))
             {
-                _className = "Task";
+                _className = _className.Replace("MISA", "");
             }
         }
         #endregion
@@ -165,6 +165,35 @@ namespace MISA.Infrastructure.Repositories
                 var storeName = $"Proc_{_className}Update";
 
                 var rowAffects = _dbConnection.Execute(storeName, param: dynamicParams, commandType: CommandType.StoredProcedure);
+
+                return rowAffects;
+            }
+        }
+        #endregion
+
+        #region Xóa thực thể khỏi DB
+        /// <summary>
+        /// Xóa thực thể khỏi DB
+        /// </summary>
+        /// <param name="entityIds">Danh sách ID của thực thể cần xóa</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Author: NQMinh (01/10/2021)
+        public int Delete(List<Guid> entityIds)
+        {
+            using (_dbConnection = new MySqlConnection(_connectionString))
+            {
+                var idString = string.Empty;
+
+                foreach (var entityId in entityIds)
+                {
+                    idString += $"'{entityId}',";
+                }
+
+                idString = idString.Remove(idString.Length - 1);
+
+                var sqlCommand = $"DELETE FROM {_className} WHERE {_className}Id IN ({idString})";
+
+                var rowAffects = _dbConnection.Execute(sqlCommand);
 
                 return rowAffects;
             }

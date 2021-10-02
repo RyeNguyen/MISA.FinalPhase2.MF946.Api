@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.Entity.MISA.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Tên nhóm/dự án
         /// </summary>
+        [MISARequired("Tên nhóm/dự án")]
         public string ProjectName { get; set; }
 
         /// <summary>
@@ -26,7 +28,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id phòng ban
         /// </summary>
-        public Guid DepartmentId { get; set; }
+        public Guid? DepartmentId { get; set; }
 
         /// <summary>
         /// Ngày bắt đầu

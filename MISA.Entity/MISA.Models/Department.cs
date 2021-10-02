@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.Entity.MISA.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,18 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id phòng ban
         /// </summary>
-        public Guid? DepartmentId { get; set; }
+        public Guid DepartmentId { get; set; }
 
         /// <summary>
         /// Tên phòng ban
         /// </summary>
+        [MISARequired("Tên phòng ban")]
         public string DepartmentName { get; set; }
+
+        /// <summary>
+        /// Danh sách các nhóm/dự án trong phòng ban
+        /// </summary>
+        public List<Project> ProjectList { get; set; } = new List<Project>();
 
         /// <summary>
         /// Mô tả
@@ -26,6 +33,6 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id chủ sở hữu
         /// </summary>
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
     }
 }

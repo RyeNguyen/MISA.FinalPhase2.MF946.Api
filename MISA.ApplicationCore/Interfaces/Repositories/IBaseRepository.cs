@@ -39,5 +39,13 @@ namespace MISA.ApplicationCore.Interfaces.Repositories
         /// <returns>Số bản ghi bị ảnh hưởng</returns>
         /// Author: NQMinh (01/10/2021)
         public int Update(Guid entityId, MISAEntity entity);
+
+        /// <summary>
+        /// Xóa thực thể khỏi DB
+        /// </summary>
+        /// <param name="entityIds">Danh sách ID của thực thể cần xóa</param>
+        /// <returns>Số bản ghi bị ảnh hưởng</returns>
+        /// Author: NQMinh (01/10/2021)
+        public int Delete(List<Guid> entityIds);
     }
 }

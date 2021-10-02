@@ -117,12 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="messageSuccessDelete" xml:space="preserve">
+    <value>Xóa thông tin thành công.</value>
+    <comment>Thông báo khi xóa bản ghi thành công.</comment>
+  </data>
   <data name="messageSuccessInsert" xml:space="preserve">
     <value>Thêm thông tin mới thành công.</value>
-    <comment>Thông báo thành công khi thêm thông tin thành công.</comment>
+    <comment>Thông báo khi thêm thông tin thành công.</comment>
   </data>
   <data name="messageSuccessUpdate" xml:space="preserve">
     <value>Cập nhật thông tin thành công.</value>
-    <comment>Thông báo thành công khi sửa thông tin thành công.</comment>
+    <comment>Thông báo khi sửa thông tin thành công.</comment>
   </data>
 </root>
