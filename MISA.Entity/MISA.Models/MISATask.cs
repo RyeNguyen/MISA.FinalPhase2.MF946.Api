@@ -37,6 +37,16 @@ namespace MISA.Entity.MISA.Models
         public Guid ProjectId { get; set; }
 
         /// <summary>
+        /// Tên nhóm/dự án
+        /// </summary>
+        public string ProjectName { get; set; }
+
+        /// <summary>
+        /// Id phòng ban
+        /// </summary>
+        public Guid? DepartmentId { get; set; }
+
+        /// <summary>
         /// Id người giao việc
         /// </summary>
         public Guid? OwnerId { get; set; }

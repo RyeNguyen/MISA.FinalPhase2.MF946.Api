@@ -12,7 +12,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id nhóm/dự án
         /// </summary>
-        public Guid ProjectId { get; set; }
+        public Guid? ProjectId { get; set; }
 
         /// <summary>
         /// Tên nhóm/dự án
@@ -28,6 +28,7 @@ namespace MISA.Entity.MISA.Models
         /// <summary>
         /// Id phòng ban
         /// </summary>
+        [MISARequired("Phòng ban")]
         public Guid? DepartmentId { get; set; }
 
         /// <summary>

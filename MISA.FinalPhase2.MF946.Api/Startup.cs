@@ -42,6 +42,18 @@ namespace MISA.FinalPhase2.MF946.Api
                 jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+                      .AllowCredentials()
+                      .WithOrigins("http://localhost:4200");
+                });
+            });
+
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
@@ -67,6 +79,8 @@ namespace MISA.FinalPhase2.MF946.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MISA.FinalPhase2.MF946.Api v1"));
             }
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 

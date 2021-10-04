@@ -35,6 +35,7 @@ namespace MISA.ApplicationCore.Services
 
             if (departmentList != null)
             {
+                departmentList = departmentList.GroupBy(i => i.DepartmentId).Select(i => i.First()).ToList();
                 var projectList = _departmentRepository.SearchData<Project>(searchKeyword);
 
                 if (projectList != null)
